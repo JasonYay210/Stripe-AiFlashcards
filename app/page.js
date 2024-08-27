@@ -6,12 +6,21 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';  
-import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/clerk-react';
 import { motion } from 'framer-motion';
+import { loadStripe } from '@stripe/stripe-js';
+
+// Add this function at the top of your file, outside of the Home component
+const getStripe = () => {
+  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    throw new Error('Stripe publishable key is not set');
+  }
+  return loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+};
 
 export default function Home() {
   // Add user state or context here
-  const user = null; // Replace with actual user state or context
+  const { isSignedIn, user } = useUser();
 
   const handleSubmit = async () => {
     const checkoutSession = await fetch('/api/checkout_sessions', {
@@ -58,7 +67,7 @@ export default function Home() {
       backgroundColor: '#00796b', 
       '&:hover': { backgroundColor: '#00796b' } // Prevent hover color change
     }} 
-    href={user ? "/generate" : "/sign-in"}
+    href={isSignedIn ? "/generate" : "/sign-in"}
   >
     Get Started
   </Button>
