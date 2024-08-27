@@ -102,9 +102,9 @@ export default function Home() {
                 WebkitTextFillColor: 'transparent',
               }}>{title}</Typography>
               <Typography gutterBottom sx={{ color: '#293241' }}>
-                {index === 0 ? 'Our AI wisely breaks down your text into concise flashcards, designed for active recall.' :
-                 index === 1 ? 'Focus more on studying with less distractions. RecallAI keeps studying to-the-point.' :
-                 'Let RecallAI create flashcards for you based on the content you provide.'}
+                {index === 0 ? 'Let AT create flashcards for you based on the content you provide.' :
+                 index === 1 ? 'Focus more on studying with less distractions. Our AI makes it simplier and easier for you.' :
+                 'You can save your flashcards and edit them.'}
               </Typography>
             </Box>
           </motion.div>
