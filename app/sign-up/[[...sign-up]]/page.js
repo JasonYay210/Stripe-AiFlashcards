@@ -6,15 +6,15 @@ require('dotenv').config();
 export default function SignUpPage(){
     return (
             <Container maxWidth='100vw' style={{margin:0, padding:0}} sx={{
-                bgcolor: '#181B1E',
+                bgcolor: '#98c1d9',
                 color: 'white',
                 height: '100vh',
             }}>
                 <AppBar position='static'>
-                <Toolbar>
+                <Toolbar sx = {{backgroundColor: '#00796b'}}>
                     <Typography variant='h6' sx={{
                         flexGrow: 1
-                    }}>flashcarss</Typography>
+                    }}>AI-FlashCards</Typography>
                     <Button color="inherit" href='/'> Home </Button>
                     <Button color="inherit" href='/sign-in'> Login </Button>
                 </Toolbar>  
@@ -29,10 +29,10 @@ export default function SignUpPage(){
                     <Typography variant="h4" gutterBottom sx={{
                         mt: 4,
                         // setting the text to be a gradient color:
-                        background: 'linear-gradient(90deg, rgba(161,152,237,1) 0%, rgba(115,144,255,1) 25%, rgba(88,137,232,1) 50%, rgba(155,215,244,1) 75%, rgba(111,194,210,1) 100%)',
+                        background: '#00796b',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
-                    }}>Your Journey Begins</Typography>
+                    }}>Begin your AI flashcards</Typography>
                     <SignUp />
                 </Box> 
             </Container>
