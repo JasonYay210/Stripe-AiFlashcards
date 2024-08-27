@@ -33,14 +33,19 @@ export default function Generate(){
     const router = useRouter();
 
     const handleSubmit = async () => {
-        fetch('api/generate', {
+        try {
+            const response = await fetch('api/generate', {
                 method: 'POST',
                 body: text,  
-        }).then((response) => response.json()).then((data) => {
+            });
+            const data = await response.json();
             setFlashcards(data);
-        });
-        // When we submit our text, we want to reset the flipped state of all cards.
-        setFlipped(new Array(flashcards.length).fill(false));
+            // Update flipped state with the correct length
+            setFlipped(new Array(data.length).fill(false));
+        } catch (error) {
+            console.error('Error generating flashcards:', error);
+            // Handle error (e.g., show an error message to the user)
+        }
     };
 
     const handleCardFlip = (id) => {
@@ -107,7 +112,7 @@ export default function Generate(){
             padding: 0,
         }}
         sx={{
-            bgcolor: '#181B1E',
+            bgcolor: '#98c1d9',
             color: 'white',
         }}>
             <motion.div
@@ -121,10 +126,15 @@ export default function Generate(){
                 justifyContent: 'right',
                 padding: 1,
             }}>
-                <Button variant='contained' color='primary' href='/' sx={{
+                <Button variant='contained' href='/' sx={{
                     marginRight: 1,
+                    backgroundColor: '#00796b',
+                    '&:hover': { backgroundColor: '#00796b' }
                 }}>Home</Button>
-                <Button variant='contained' color='primary' href='/flashcards'>View Decks</Button>
+                <Button variant='contained' href='/flashcards' sx={{
+                    backgroundColor: '#00796b',
+                    '&:hover': { backgroundColor: '#00796b' }
+                }}>View Decks</Button>
             </Box>
             <Box 
                 style={{
@@ -141,14 +151,14 @@ export default function Generate(){
                 <Typography variant='h4' sx={{
                     mt: 4,
                     // setting the text to be a gradient color:
-                    background: 'linear-gradient(90deg, rgba(153,143,238,1) 0%, rgba(109,134,232,1) 25%, rgba(111,159,210,1) 50%, rgba(145,175,255,1) 75%, rgba(0,137,255,1) 100%)',
+                    background: '#00796b',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                 }}>Generate Flashcards</Typography>
                 <Paper sx={{p: 4, width: '100%', mb: 2}}>
                     <TextField value={text}
                         onChange={(e) => setText(e.target.value)}
-                        label='Enter Text to Create Flashcards From' 
+                        label='Enter text to create flashcards using AI' 
                         multiline rows={4}
                         fullWidth
                         variant='outlined' 
@@ -157,8 +167,11 @@ export default function Generate(){
                     <Button 
                         variant='contained'
                         onClick={handleSubmit}
-                        color='primary'
                         fullWidth
+                        sx={{
+                            backgroundColor: '#00796b',
+                            '&:hover': { backgroundColor: '#00796b' }
+                        }}
                     >Submit</Button>
                 </Paper>
             </Box>
@@ -178,7 +191,7 @@ export default function Generate(){
                         textAlign: 'center',
                         mb: 4,
                         // setting the text to be a gradient color:
-                        background: 'linear-gradient(90deg, rgba(153,143,238,1) 0%, rgba(109,134,232,1) 25%, rgba(111,159,210,1) 50%, rgba(145,175,255,1) 75%, rgba(0,137,255,1) 100%)',
+                        background: '#00796b',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                     }}>Flashcards Preview</Typography>
@@ -247,6 +260,8 @@ export default function Generate(){
                     }}>
                         <Button variant='contained' color='secondary' onClick={handleOpen} sx={{
                             mb: 2,
+                            backgroundColor: '#00796b',
+                            '&:hover': { backgroundColor: '#00796b' }
                         }}>Save Deck</Button>
                     </Box>
                 </Box>
